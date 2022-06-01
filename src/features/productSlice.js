@@ -11,10 +11,9 @@ const initialState ={
         image:"",
         description:"",
         price:""
-    },
-    cart:[]
-    
+    }
 }
+
 
 export const fetchproducts = createAsyncThunk('product/fetchproducts',()=>{
     return axios 
@@ -46,7 +45,10 @@ export const deleteproduct = createAsyncThunk(
     async(id)=>{
         return fetch(`https://my-json-server.typicode.com/karanfulare/products/products/${id}`,{
             method:'DELETE'
-           }).then((res)=> res.json());
+           })
+           .then((res)=>{res.json()})
+           .then((data) =>{console.log('data',data); return {'id':id}})
+           .catch((err) => {console.log('error')});
     }
 );
 
@@ -76,13 +78,25 @@ const productSlice = createSlice({
             state.product = state.products.find((el) => el.id == action.payload)
         },
         addtocart:(state,action)=>{
-            state.cart = state.cart.concat(action.payload)
+            state.cart = state.cart.push(action.payload)
         },
         removefromcartaction:(state,action)=>{
             state.cart = state.cart.pop()   // not working
         },
         sortAction:(state,action)=>{
-            state.product = state.products.sort()
+            let sorted = state.products.sort(function(item1,item2){
+                      if (item1.price < item2.price) return -1;
+                      if (item1.price > item2.price) return 1;
+                      return 0;
+                  })
+                  state.products = sorted;
+        },
+        unsortAction:(state,action)=>{
+            state.products = state.products.sort(function(item1,item2){
+                if (item1.price < item2.price) return 1;
+                if (item1.price > item2.price) return -1;
+                  return 0;
+            });
         }
     },
     extraReducers:builder=>{
@@ -116,10 +130,8 @@ const productSlice = createSlice({
         })
         builder.addCase(deleteproduct.fulfilled,(state,action)=>{
             state.loading=false 
-             state.products=state.products.filter((item) => 
-             !item.id === action.id
-          )
-            state.error=''
+             state.products =  state.products.filter( item => item.id !== action.payload.id );
+             state.error=''
         })
         builder.addCase(deleteproduct.rejected,(state,action)=>{
             state.loading = false
@@ -144,4 +156,5 @@ export const {getProduct} = productSlice.actions;
 export const {addtocart} = productSlice.actions;
 export const {removefromcartaction} = productSlice.actions;
 export const {sortAction} = productSlice.actions;
+export const {unsortAction} = productSlice.actions;
 export default productSlice.reducer ;

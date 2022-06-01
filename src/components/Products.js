@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteproduct, fetchproducts, sortAction, updateproduct } from '../features/productSlice'
+
+import { deleteproduct, fetchproducts, sortAction, updateproduct,unsortAction } from '../features/productSlice'
 import {Link} from 'react-router-dom'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './Navbar';
 
 function Products() {
     const data = useSelector(state => state.myproduct)
   const dispatch = useDispatch()
 
   const [sort,Setsort] = useState("Sort")
+  const [xxx,Setxxx] = useState()
   const [val,SetVal]= useState(true)
   const [edit,Setedit]= useState(false)
+  const [editId,SeteditId] = useState()
   const [newtitle,Setnewtitle]= useState("")
   const [newprice,Setnewprice]= useState("")
   const [newrating,Setnewrating]= useState("")
 
   function fetch(){
     dispatch(fetchproducts())
+    let list = data.Products;
   }
 
-  const handeldelete=({id})=>{
-    dispatch(deleteproduct({payload:id}))
+  const handeldelete=(id)=>{
+    dispatch(deleteproduct(id))
     console.log("deleted")
+    toast.error("Deleted !", {
+      position: toast.POSITION.TOP_LEFT
+    });
+
   }
 
   const values ={newtitle,newprice,newrating}
+
   function handelupdate({id}){
     dispatch(updateproduct(id,{values}))
     console.log(values)
@@ -31,16 +44,27 @@ function Products() {
 
   function handelsort(){
     SetVal(!val)
-   if(val){Setsort("Unsort")}
-   else{Setsort("sort")}
+   Setsort("Sorted")
+   Setxxx("❌")
    dispatch(sortAction())
   }
 
+  
+  function handelunsort(){
+    Setsort("Sort")
+    Setxxx()
+   dispatch(unsortAction())
+  }
+
   return (
+    
     <div className='container'>
+      <Navbar/>
+      <ToastContainer />
       <h2>List of Products</h2>
       <button onClick={fetch}>fetch</button>
       <div><button className='btn btn-light' onClick={handelsort}> {sort}</button></div>
+      <><button className='btn btn-transparent'  onClick={handelunsort}> {xxx}</button></>
       {data.loading && <div>Loading...</div>}
       {!data.loading && data.error ? <div>Error: {data.error}</div> : null}
       {!data.loading && data.products.length ? (
@@ -85,3 +109,16 @@ function Products() {
     
 
 export default Products;
+
+
+
+
+
+
+
+
+
+
+
+
+// state.products = state.products.filter(item => item.id !== action.payload.id);
