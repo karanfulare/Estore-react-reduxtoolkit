@@ -118,7 +118,8 @@ const productSlice = createSlice({
         })
         builder.addCase(addproducts.fulfilled,(state,action)=>{
             state.loading = false
-            state.products= state.products.concat(action.payload)
+            action.payload.id = state.products.length+1;
+            state.products= [action.payload,...state.products];
             state.error = ''
         })
         builder.addCase(addproducts.rejected,(state,action)=>{

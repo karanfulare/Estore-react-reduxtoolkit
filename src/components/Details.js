@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import { useNavigate , useParams } from 'react-router-dom';
-import {useDispatch,useSelector,us} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import { add } from '../features/cartSlice'
 import {getProduct,addtocart} from '../features/productSlice'
 import Navbar from './Navbar';
@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function Details(){
+   // const [disable, setDisable] = useState(false);
     const navigate = useNavigate();
     const params = useParams();
     const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function Details(){
     const handleAdd = (product) => {
         dispatch(add(product));
         console.log("working")
+   //  disabled={disable}
     toast.success("Added to Cart !", {
         position: toast.POSITION.TOP_CENTER
       });
@@ -54,7 +56,7 @@ function Details(){
         </div>
         <button 
             className='btn btn-warning'
-            onClick={() => handleAdd(productdetail)}
+            onClick={() => handleAdd(productdetail) }
             > Add to cart </button>
         <br/>
         <button 
