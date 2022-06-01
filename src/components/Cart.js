@@ -14,9 +14,9 @@ const Cart = () => {
         <div>
             <Navbar/>
             <h3>Cart</h3>
-            <div className="container">
+            <div className="container" >
                 {products.map((product) => (
-                    <div key={product.id} className="cartCard">
+                    <div key={product.id} className="mt-4" style={{border:"3px solid pink",borderRaduis:"9px"}}>
                         <img src={product.image} alt="" />
                         <h5>{product.title}</h5>
                         <h5>{product.price}</h5>

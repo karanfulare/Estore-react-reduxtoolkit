@@ -7,23 +7,17 @@ import Cart from './Cart';
 const Navbar = () => {
     const items = useSelector((state) => state.cart);
     return (
-        <div
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-            }}
-        >
+        <div>
 
             <div>
                 <Link className="navLink" to="/">
-                    Home
+                   <li>Home</li> 
                 </Link>
                 <Link className="navLink" to="/addproduct">
-                    Addproduct
+                <li> Addproduct</li> 
                 </Link>
                 <Link className="navLink" to="/cart">
-                    Cart
+                <li> Cart</li> 
                 </Link>
                 <span className="cartCount">Cart items: {items.length}</span>
             </div>

@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from './Navbar';
 import SingleProduct from './SingleProduct';
 
 function Products() {
@@ -46,7 +45,7 @@ function Products() {
   return (
     
     <div className='container'>
-      <Navbar/>
+      
       <ToastContainer />
       <h2>List of Products</h2>
       <button onClick={fetch}>fetch</button>

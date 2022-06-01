@@ -6,6 +6,7 @@ import { addproducts } from '../features/productSlice';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './Navbar';
 
 function Addproduct() {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ function Addproduct() {
     }
   return (
     <>
+    <Navbar/>
    <div className='container mt-4' style={{border:"3px solid orange", borderRadius:"12px"}}>
     <form className='mt-2'>
         Name:<input
