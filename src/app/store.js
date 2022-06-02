@@ -3,8 +3,8 @@ import cartSlice from "../features/cartSlice";
 import productSlice from "../features/productSlice";
 
 const store = configureStore({
-    reducer:{
-        myproduct:productSlice,
+    reducer:{                         // old redux(combinereducer) combining our reducers here and passing it to store
+        myproduct:productSlice,          
         cart:cartSlice
     }
 })

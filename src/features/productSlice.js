@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
+
+//declaring my initialstate 
 const initialState ={
     loading:false,
     products:[],
@@ -14,13 +16,14 @@ const initialState ={
     }
 }
 
-
+// for fetching products trying axios here
 export const fetchproducts = createAsyncThunk('product/fetchproducts',()=>{
     return axios 
     .get(`https://my-json-server.typicode.com/karanfulare/products/products`)
     .then(resp=>resp.data)
 })
 
+// adding products to my list POST request
 export const addproducts = createAsyncThunk(
     'product/addproducts',
 async({values})=>{
@@ -40,6 +43,7 @@ async({values})=>{
 }
 )
 
+// deleting products from my list DELETE request
 export const deleteproduct = createAsyncThunk(
     'products/deleteproduct',
     async(id)=>{
@@ -52,6 +56,7 @@ export const deleteproduct = createAsyncThunk(
     }
 );
 
+// updating products from my list PUT request
 export const updateproduct = createAsyncThunk(
     'product/updateproduct',
     async({id,item:values})=>{
@@ -71,6 +76,7 @@ export const updateproduct = createAsyncThunk(
     }
 );
 
+// my reducers 
 const productSlice = createSlice({
     name:"myproduct",
     initialState,
@@ -94,6 +100,7 @@ const productSlice = createSlice({
             });
         }
     },
+    // this extraReducer work on api req (onpending,onfulfilled,onreject)
     extraReducers:builder=>{
         builder.addCase(fetchproducts.pending,(state)=>{
             state.loading=true
@@ -103,7 +110,6 @@ const productSlice = createSlice({
             state.products= action.payload
             state.error=''
         })
-        
         builder.addCase(fetchproducts.rejected,(state,action)=>{
             state.loading = false
             state.products = []
