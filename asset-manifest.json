@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/karanfulare/store/static/css/main.c798c81a.css",
+    "main.js": "/karanfulare/store/static/js/main.0695a72f.js",
+    "static/media/pexels-fwstudio-129731.jpg": "/karanfulare/store/static/media/pexels-fwstudio-129731.04c06ac1a29a0452752d.jpg",
+    "index.html": "/karanfulare/store/index.html",
+    "main.c798c81a.css.map": "/karanfulare/store/static/css/main.c798c81a.css.map",
+    "main.0695a72f.js.map": "/karanfulare/store/static/js/main.0695a72f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c798c81a.css",
+    "static/js/main.0695a72f.js"
+  ]
+}
