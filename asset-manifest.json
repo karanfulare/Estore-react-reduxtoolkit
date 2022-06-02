@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/store/static/css/main.f145c46a.css",
-    "main.js": "/store/static/js/main.0695a72f.js",
-    "static/media/pexels-fwstudio-129731.jpg": "/store/static/media/pexels-fwstudio-129731.04c06ac1a29a0452752d.jpg",
-    "index.html": "/store/index.html",
-    "main.f145c46a.css.map": "/store/static/css/main.f145c46a.css.map",
-    "main.0695a72f.js.map": "/store/static/js/main.0695a72f.js.map"
+    "main.css": "/karanfulare/Estore-react-reduxtoolkit/static/css/main.5a974924.css",
+    "main.js": "/karanfulare/Estore-react-reduxtoolkit/static/js/main.0695a72f.js",
+    "static/media/pexels-fwstudio-129731.jpg": "/karanfulare/Estore-react-reduxtoolkit/static/media/pexels-fwstudio-129731.04c06ac1a29a0452752d.jpg",
+    "index.html": "/karanfulare/Estore-react-reduxtoolkit/index.html",
+    "main.5a974924.css.map": "/karanfulare/Estore-react-reduxtoolkit/static/css/main.5a974924.css.map",
+    "main.0695a72f.js.map": "/karanfulare/Estore-react-reduxtoolkit/static/js/main.0695a72f.js.map"
   },
   "entrypoints": [
-    "static/css/main.f145c46a.css",
+    "static/css/main.5a974924.css",
     "static/js/main.0695a72f.js"
   ]
 }
