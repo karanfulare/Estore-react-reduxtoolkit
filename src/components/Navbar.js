@@ -9,17 +9,17 @@ const Navbar = () => {
     return (
         <div>
 
-            <div>
+            <div className='nav'>
                 <Link className="navLink" to="/">
-                   <li>Home</li> 
+                   <h2>Ecommerce 🛒</h2> 
                 </Link>
                 <Link className="navLink" to="/addproduct">
-                <li> Addproduct</li> 
+                <h4> Addproduct</h4> 
                 </Link>
                 <Link className="navLink" to="/cart">
-                <li> Cart</li> 
+                <h4> Cart</h4> 
                 </Link>
-                <span className="cartCount">Cart items: {items.length}</span>
+                <h4 className="cartCount">Cart items: {items.length}</h4>
             </div>
         </div>
     );

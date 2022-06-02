@@ -1,89 +1,83 @@
 import { useState } from "react";
-import React, { useEffect} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
+import {Link} from 'react-router-dom'
+import { deleteproduct, updateproduct } from "../features/productSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { deleteproduct, fetchproducts, sortAction, updateproduct,unsortAction } from '../features/productSlice'
-import {Link} from 'react-router-dom'
-import Details from "./Details";
 
-function SingleProduct(props)
+function Product(props)
 {
-    const dispatch = useDispatch()
-    const {item} = props;
-    const [id,setId] = useState(item.id);
-    const [title,setTitle] = useState(item.title);
-    const [image,setImage] = useState(item.image);
-    const [price,setPrice] = useState(item.price);
-    const [rating,setRating] = useState(item.rating);
-    console.log(id);
+    const dispatch = useDispatch();
 
-    const [editId,SeteditId] = useState(null);
-    const [edit,Setedit]= useState(false)
-    const [newtitle,Setnewtitle]= useState(item.title)
-    const [newprice,Setnewprice]= useState()
-    const [newrating,Setnewrating]= useState("")
+    function handelupdate(id)
+    {
+        const item = {
+            'id':id,            
+            'title': title,
+            'price':price,
+            'rating': rating,
+            'image':image,
+        };
+        console.log('item',item);
+        dispatch(updateproduct({'id':id,'item':item}));
+        toast("Changes Saved!", {
+          position: toast.POSITION.TOP_CENTER
+        });
+    }
 
     const handeldelete=(id)=>{
         dispatch(deleteproduct(id))
-        console.log("deleted")
-        toast.error("Deleted !", {
-          position: toast.POSITION.TOP_LEFT
+        toast.info(" Product deleted!", {
+          position: toast.POSITION.TOP_CENTER
         });
-    
-      }
-    
-      const values ={newtitle,newprice,newrating}
-    
-      function handelupdate({id}){
-        dispatch(updateproduct(id,{values}))
-        console.log(values)
       }
 
+    const {item} = props;
+    const [edit,Setedit] = useState(false);
+    const [title,Settitle]= useState(item.title);
+    const [price,Setprice]= useState(item.price);
+    const [rating,Setrating]= useState(item.rating);
+    const [image,setImage]= useState(item.image);
     
     return(
-        <>
-        <div key={props.id} className="items"> 
-       <h3>{title}</h3>
-        <img src={image} alt={title} />
-        <>Price: {price} $</>
-        <p>Rating :{rating}</p>
-        <Link to={`/details/${id}`}> Details </Link>
-        
-          <button 
-          className='btn btn-primary'
-           onClick={()=>Setedit(true)}
-          > Edit </button>
-          
-          <button 
-          className='btn btn-danger '
-          onClick={()=>handeldelete(id)}
-          >Delete</button>
-          
+        <div key= {item.id} >
+          <ToastContainer/>
+            {edit ? 
+            <div id="items" >
+              <div id="itemimg">
+                      <img src={item.image} alt={title} />
+               </div>
+               <div id="specs">
+                 <h3><input type = "text" value={title} onChange={(e)=>Settitle(e.target.value)}/></h3>
+                 <p><input type = "number" value={price} onChange={(e)=>Setprice(e.target.value)}/></p>
+                 <p><input type = "text" value={rating} onChange={(e)=>Setrating(e.target.value)}/></p> 
+                 <button 
+                  className='btn btn-success'
+                  onClick={()=>handelupdate(item.id)}> Save </button>
+                 <button 
+                 className='btn btn-warning'
+                 onClick={()=>Setedit(false)} > Cancel </button>
+               </div>
+               </div> 
 
+            :<div>
+               <div id="items"> 
+                   <div id="itemimg">
+                      <img src={item.image} alt={title} />
+                   </div>
+                   <div id="specs">
+                        <h3>{item.title}</h3>
+                        <p>Price: {item.price} $</p> 
+                        <p>Rating :{item.rating}</p>
+                         <Link to={`/details/${item.id}`}> Details </Link>
+                         <button className="btn btn-info" onClick={()=>Setedit(true) }>Edit</button>
+                         <button className="btn btn-danger" onClick={()=> handeldelete(item.id)}>Delete</button>
+                   </div>
+                </div> 
+            </div>}
 
-          {/* 
-          <input value={props.title} onChange={(e)=>Setnewtitle(e.target.value)}/> 
-          <input value={newprice} onChange={(e)=>Setnewprice(e.target.value)}/>
-           <input value={newrating} onChange={(e)=>Setnewrating(e.target.value)}/>
-          
-          <button 
-          className='btn btn-sucess'
-          onClick={()=>handelupdate(props.id,{values})}
-          > Save </button>
-          
-          <button 
-          className='btn btn-warning'
-          onClick={()=>Setedit(false)}
-          > Cancel </button></></> 
-          </div> */}
-        
-        
         </div>
-        </>
-        
-        
     )
 
 }
-export default SingleProduct;
+export default Product;

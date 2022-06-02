@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { deleteproduct, fetchproducts, sortAction, updateproduct,unsortAction } from '../features/productSlice'
-import {Link} from 'react-router-dom'
+import {  fetchproducts, sortAction, unsortAction } from '../features/productSlice'
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SingleProduct from './SingleProduct';
 
@@ -12,21 +11,14 @@ function Products() {
     const data = useSelector(state => state.myproduct)
   const dispatch = useDispatch()
 
-  const [sort,Setsort] = useState("Sort")
+  const [sort,Setsort] = useState("Sort by Price")
   const [xxx,Setxxx] = useState()
   const [val,SetVal]= useState(true)
-  const [edit,Setedit]= useState(false)
-  const [editId,SeteditId] = useState()
-  const [newtitle,Setnewtitle]= useState("")
-  const [newprice,Setnewprice]= useState("")
-  const [newrating,Setnewrating]= useState("")
+ 
 
   function fetch(){
     dispatch(fetchproducts())
-    let list = data.Products;
   }
-
- 
 
   function handelsort(){
     SetVal(!val)
@@ -35,22 +27,24 @@ function Products() {
    dispatch(sortAction())
   }
 
-  
-  function handelunsort(){
-    Setsort("Sort")
+   function handelunsort(){
+    Setsort("Sort by Price")
     Setxxx()
    dispatch(unsortAction())
   }
 
   return (
-    
     <div className='container'>
-      
       <ToastContainer />
       <h2>List of Products</h2>
-      <button onClick={fetch}>fetch</button>
-      <div><button className='btn btn-light' onClick={handelsort}> {sort}</button></div>
-      <><button className='btn btn-transparent'  onClick={handelunsort}> {xxx}</button></>
+      <div id='btn'>
+          <div> <button onClick={fetch} className='btn btn-light'>Get Products</button></div>
+          <div>
+            <button className='btn btn-light' onClick={handelsort}> {sort}</button>
+           <button className='btn btn-transparent'  onClick={handelunsort}> {xxx}</button>
+           </div>
+      </div>
+  
       {data.loading && <div>Loading...</div>}
       {!data.loading && data.error ? <div>Error: {data.error}</div> : null}
       {!data.loading && data.products.length ? (
@@ -65,8 +59,6 @@ function Products() {
     
   )
 }
-    
-
 export default Products;
 
 

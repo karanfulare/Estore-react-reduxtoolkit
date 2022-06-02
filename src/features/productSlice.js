@@ -54,7 +54,7 @@ export const deleteproduct = createAsyncThunk(
 
 export const updateproduct = createAsyncThunk(
     'product/updateproduct',
-    async(id,{values})=>{
+    async({id,item:values})=>{
         return fetch(`https://my-json-server.typicode.com/karanfulare/products/products/${id}`,{
             method:'PUT',
             headers:{
@@ -62,9 +62,10 @@ export const updateproduct = createAsyncThunk(
                 "Content-type":'application/json'
             },
             body:JSON.stringify({
-                title:values.newtitle,
-                price:values.newprice,
-                rating:values.newrating
+                title:values.title,
+                price:values.price,
+                rating:values.rating,
+                image:values.image
             })
         }).then((res)=>res.json());
     }
@@ -77,12 +78,6 @@ const productSlice = createSlice({
         getProduct:(state,action)=>{          // for details page
             state.product = state.products.find((el) => el.id == action.payload)
         },
-        addtocart:(state,action)=>{
-            state.cart = state.cart.push(action.payload)
-        },
-        removefromcartaction:(state,action)=>{
-            state.cart = state.cart.pop()   // not working
-        },
         sortAction:(state,action)=>{
             let sorted = state.products.sort(function(item1,item2){
                       if (item1.price < item2.price) return -1;
@@ -93,8 +88,8 @@ const productSlice = createSlice({
         },
         unsortAction:(state,action)=>{
             state.products = state.products.sort(function(item1,item2){
-                if (item1.price < item2.price) return 1;
-                if (item1.price > item2.price) return -1;
+                if (item1.id< item2.id) return -1;
+                if (item1.id > item2.id) return 1;
                   return 0;
             });
         }
@@ -108,6 +103,7 @@ const productSlice = createSlice({
             state.products= action.payload
             state.error=''
         })
+        
         builder.addCase(fetchproducts.rejected,(state,action)=>{
             state.loading = false
             state.products = []
@@ -119,7 +115,7 @@ const productSlice = createSlice({
         builder.addCase(addproducts.fulfilled,(state,action)=>{
             state.loading = false
             action.payload.id = state.products.length+1;
-            state.products= [action.payload,...state.products];
+            state.products= [...state.products,action.payload];
             state.error = ''
         })
         builder.addCase(addproducts.rejected,(state,action)=>{
@@ -143,7 +139,15 @@ const productSlice = createSlice({
         })
         builder.addCase(updateproduct.fulfilled,(state,action)=>{
             state.loading = false
-            state.products = action.payload
+            console.log('action',action);
+            const item = action.payload;
+
+           state.products =  state.products.map((product,index)=>{
+                if(product.id == item.id){
+                    return item;
+                }
+                return product;
+            });
         })
         builder.addCase(updateproduct.rejected,(state,action)=>{
             state.loading = false
@@ -154,8 +158,6 @@ const productSlice = createSlice({
 })
 
 export const {getProduct} = productSlice.actions;
-export const {addtocart} = productSlice.actions;
-export const {removefromcartaction} = productSlice.actions;
 export const {sortAction} = productSlice.actions;
 export const {unsortAction} = productSlice.actions;
 export default productSlice.reducer ;

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useState } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { addproducts } from '../features/productSlice';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -32,7 +32,7 @@ function Addproduct() {
          type="text" placeholder='Enter product name'
          value={title}
          onChange={(e)=> setValues({...values,title:e.target.value})}
-         /><br/>
+         required="required"/><br/>
         Description:<textarea 
         className='form-control' 
         placeholder='Add description'
