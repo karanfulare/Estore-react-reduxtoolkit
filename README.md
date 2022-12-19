@@ -4,6 +4,11 @@
 
 # https://estore-reactjs-reduxtoolkit.herokuapp.com/
 
+## Link to Video Explanation and working demo
+
+# https://youtu.be/a-1YWp8B3H0
+
+
 Functionalities : 
 - [x] Read product from server
 - [x] Add a Product 
