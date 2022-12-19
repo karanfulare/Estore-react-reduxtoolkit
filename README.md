@@ -2,7 +2,7 @@
 
 ## Hosted Link : 
 
-# https://estore-reactjs-reduxtoolkit.herokuapp.com/
+# https://estore-react-reduxtoolkit.vercel.app/
 
 ## Link to Video Explanation and working demo
 
