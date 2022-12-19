@@ -15,10 +15,10 @@ root.render(
   <Provider store={store}>
     <Router>
       <Routes>
-    <Route exact path ="https://github.com/karanfulare/Estore-react-reduxtoolkit/" element={<App />} />
-    <Route exact path ="https://github.com/karanfulare/Estore-react-reduxtoolkit/addproduct" element={<Addproduct/>} />
-    <Route exact path ="https://github.com/karanfulare/Estore-react-reduxtoolkit/cart" element={<Cart/>}/>
-    <Route exact path='https://github.com/karanfulare/Estore-react-reduxtoolkit/details/:id' element={<Details data={store}/>}/>
+    <Route exact path ="/" element={<App />} />
+    <Route exact path ="/addproduct" element={<Addproduct/>} />
+    <Route exact path ="/cart" element={<Cart/>}/>
+    <Route exact path='/details/:id' element={<Details data={store}/>}/>
     </Routes>
     </Router>
   </Provider>
